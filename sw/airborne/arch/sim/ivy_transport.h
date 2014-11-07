@@ -18,8 +18,8 @@ extern int ivy_dl_enabled;
 
 #define Space() ivy_p += sprintf(ivy_p, " ");
 #define Comma() ivy_p += sprintf(ivy_p, ",");
-#define DelimStart() ivy_p += sprintf(ivy_p, "|");
-#define DelimEnd() ivy_p += sprintf(ivy_p, "|");
+#define DelimStart() ivy_p += sprintf(ivy_p, "\"");
+#define DelimEnd() ivy_p += sprintf(ivy_p, "\"");
 
 #define IvyTransportPutcByAddr(_dev,x) ivy_p += sprintf(ivy_p, "%c", *x);
 #define IvyTransportPutCharByAddr(_dev,x) IvyTransportPutcByAddr(_dev,x) Space()
@@ -41,16 +41,23 @@ extern int ivy_dl_enabled;
 
 #define IvyTransportPutArray(_dev,_put, _n, _x) { \
   int __i; \
-  DelimStart(); \
   for(__i = 0; __i < _n; __i++) { \
     _put(_dev,&_x[__i]); \
     Comma(); \
+  } Space(); \
+}
+
+#define IvyTransportPutString(_dev,_put, _n, _x) { \
+  int __i; \
+  DelimStart(); \
+  for(__i = 0; __i < _n; __i++) { \
+    _put(_dev,&_x[__i]); \
   } DelimEnd(); Space(); \
 }
 
 #define IvyTransportPutInt8Array(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutIntByAddr, _n, _x)
 #define IvyTransportPutUint8Array(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutUintByAddr, _n, _x)
-#define IvyTransportPutCharArray(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutcByAddr, _n, _x)
+#define IvyTransportPutCharArray(_dev,_n, _x) IvyTransportPutString(_dev,IvyTransportPutcByAddr, _n, _x)
 #define IvyTransportPutInt16Array(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutIntByAddr, _n, _x)
 #define IvyTransportPutUint16Array(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutUintByAddr, _n, _x)
 #define IvyTransportPutUint32Array(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutUintByAddr, _n, _x)
@@ -62,7 +69,7 @@ extern int ivy_dl_enabled;
 
 #define IvyTransportPutInt8FixedArray(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutIntByAddr, _n, _x)
 #define IvyTransportPutUint8FixedArray(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutUintByAddr, _n, _x)
-#define IvyTransportPutCharFixedArray(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutcByAddr, _n, _x)
+#define IvyTransportPutCharFixedArray(_dev,_n, _x) IvyTransportPutString(_dev,IvyTransportPutcByAddr, _n, _x)
 #define IvyTransportPutInt16FixedArray(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutIntByAddr, _n, _x)
 #define IvyTransportPutUint16FixedArray(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutUintByAddr, _n, _x)
 #define IvyTransportPutUint32FixedArray(_dev,_n, _x) IvyTransportPutArray(_dev,IvyTransportPutUintByAddr, _n, _x)
