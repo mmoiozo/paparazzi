@@ -6,8 +6,9 @@
     <target name="ap" board="ardrone2_raw">
       <define name="AUTOPILOT_DISABLE_AHRS_KILL"/>
       <define name="FAILSAFE_DESCENT_SPEED" value="0.5"/>
+      <define name="USE_SONAR" value="1"/>
+      <define name="INS_SONAR_VARIANCE_THRESHOLD"/>
       <configure name="USE_MAGNETOMETER" value="0"/>
-
       <subsystem name="telemetry" type="udp"/>
       <subsystem name="radio_control" type="datalink"/>
     </target>
@@ -24,7 +25,7 @@
     <subsystem name="gps" type="datalink"/>
     <subsystem name="stabilization" type="int_quat"/>
     <subsystem name="ahrs" type="int_cmpl_quat"/>
-    <subsystem name="ins" type="extended"/>
+    <subsystem name="ins" type="int"/>
   </firmware>
 
   <modules main_freq="512">
@@ -115,6 +116,8 @@
 
   <section name="INS" prefix="INS_">
     <!-- Use GPS altitude measurments and set the R gain -->
+    <define name="SONAR_MAX_RANGE" value="4"/>
+    <define name="SONAR_UPDATE_ON_AGL" value="FALSE"/>
     <define name="USE_GPS_ALT" value="1"/>
     <define name="VFF_R_GPS" value="0.01"/>
   </section>

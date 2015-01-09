@@ -231,6 +231,7 @@ static void send_rotorcraft_cmd(void) {
 }
 
 
+
 void autopilot_init(void) {
   /* mode is finally set at end of init if MODE_STARTUP is not KILL */
   autopilot_mode = AP_MODE_KILL;
