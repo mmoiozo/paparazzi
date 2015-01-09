@@ -25,7 +25,7 @@
     <subsystem name="gps" type="datalink"/>
     <subsystem name="stabilization" type="int_quat"/>
     <subsystem name="ahrs" type="int_cmpl_quat"/>
-    <subsystem name="ins" type="int"/>
+    <subsystem name="ins" type="extended"/>
   </firmware>
 
   <modules main_freq="512">

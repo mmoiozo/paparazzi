@@ -333,6 +333,7 @@ void ins_update_gps(void) {
 #if USE_SONAR
 static void sonar_cb(uint8_t __attribute__((unused)) sender_id, const float *distance) {
   static float last_offset = 0.;
+  ins_impl.sonar_z = *distance;
 
   /* update filter assuming a flat ground */
   if (*distance < INS_SONAR_MAX_RANGE && *distance > INS_SONAR_MIN_RANGE
